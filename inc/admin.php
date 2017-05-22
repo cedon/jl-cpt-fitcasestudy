@@ -78,7 +78,7 @@ function fitcase_initialize_plugin_options() {
 add_action( 'admin_init', 'fitcase_initialize_plugin_options' );
 
 function fitcase_general_options_callback() {
-
+	echo '<p>These options control the various features of Fitness Case Studies</p>';
 }
 
 function fitcase_toggle_jsonld_callback( $args ) {
