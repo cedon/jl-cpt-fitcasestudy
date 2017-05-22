@@ -11,6 +11,7 @@ License: GPLv2 or later
 */
 
 // Options Page
+require_once( plugin_dir_path( __FILE__ ) . 'inc/options.php' );
 
 // Custom Post Type Definition
 
