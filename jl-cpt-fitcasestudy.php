@@ -17,6 +17,7 @@ require_once ( plugin_dir_path( __FILE__ ) . 'inc/admin.php' );
 // Custom Post Type Definition
 
 // Custom Taxonomy Definition
+require_once ( plugin_dir_path( __FILE__ ) . 'inc/taxonomy.php' );
 
 // JSON Linked Data
 if ( get_option( 'fitcase_toggle_jsonld' ) ) {
