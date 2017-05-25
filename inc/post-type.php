@@ -1,15 +1,15 @@
 <?php
 
 // Register Custom Post Type
-function fitnesscasestudy() {
+function fitcasestudy_custom_post() {
 
 	$labels = array(
 		'name'                  => _x( 'Case Studies', 'Post Type General Name', 'fitcasestudy' ),
 		'singular_name'         => _x( 'Case Study', 'Post Type Singular Name', 'fitcasestudy' ),
-		'menu_name'             => __( 'Fitness Case Studies', 'fitcasestudy' ),
+		'menu_name'             => __( 'Fitness Case Stidues', 'fitcasestudy' ),
 		'name_admin_bar'        => __( 'Post Type', 'fitcasestudy' ),
-		'archives'              => __( 'Case Study Archives', 'fitcasestudy' ),
-		'attributes'            => __( 'Case Study Attributes', 'fitcasestudy' ),
+		'archives'              => __( 'Item Archives', 'fitcasestudy' ),
+		'attributes'            => __( 'Item Attributes', 'fitcasestudy' ),
 		'parent_item_colon'     => __( 'Parent Case', 'fitcasestudy' ),
 		'all_items'             => __( 'All Cases', 'fitcasestudy' ),
 		'add_new_item'          => __( 'Add New Case', 'fitcasestudy' ),
@@ -27,10 +27,10 @@ function fitnesscasestudy() {
 		'remove_featured_image' => __( 'Remove featured image', 'fitcasestudy' ),
 		'use_featured_image'    => __( 'Use as featured image', 'fitcasestudy' ),
 		'insert_into_item'      => __( 'Insert into case', 'fitcasestudy' ),
-		'uploaded_to_this_item' => __( 'Uploaded to this item', 'fitcasestudy' ),
-		'items_list'            => __( 'Items list', 'fitcasestudy' ),
-		'items_list_navigation' => __( 'Items list navigation', 'fitcasestudy' ),
-		'filter_items_list'     => __( 'Filter items list', 'fitcasestudy' ),
+		'uploaded_to_this_item' => __( 'Uploaded to this case', 'fitcasestudy' ),
+		'items_list'            => __( 'Case list', 'fitcasestudy' ),
+		'items_list_navigation' => __( 'Case list navigation', 'fitcasestudy' ),
+		'filter_items_list'     => __( 'Filter case list', 'fitcasestudy' ),
 	);
 	$args = array(
 		'label'                 => __( 'Case Study', 'fitcasestudy' ),
@@ -53,7 +53,7 @@ function fitnesscasestudy() {
 		'capability_type'       => 'post',
 		'show_in_rest'          => true,
 	);
-	register_post_type( 'fit-case-study', $args );
+	register_post_type( 'fitcasestudy', $args );
 
 }
-add_action( 'init', 'fitnesscasestudy', 0 );
+add_action( 'init', 'fitcasestudy_custom_post', 0 );
