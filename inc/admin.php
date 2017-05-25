@@ -9,18 +9,8 @@
  */
 
 function fitcase_admin_menu() {
-	add_menu_page(
-		'Fitness Case Studies',
-		'Fitness Case Studies',
-		'editor',
-		'fitcase_admin_menu',
-		'fitcase_admin_menu_callback',
-		'dashicons-universal-access',
-		9
-	);
-
 	add_submenu_page(
-		'fitcase_admin_menu',
+		'edit.php?post_type=fit-case-study',
 		__( 'Options', 'fitcasestudy' ),
 		__( 'Options', 'fitcasestudy' ),
 		'administrator',
@@ -29,10 +19,6 @@ function fitcase_admin_menu() {
 	);
 }
 add_action( 'admin_menu', 'fitcase_admin_menu' );
-
-function fitcase_admin_menu_callback() {
-
-}
 
 function fitcase_admin_menu_options_callback() { ?>
 	<form method="post" action="options.php">

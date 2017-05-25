@@ -11,14 +11,14 @@ Text Domain: fitcasestudy
 License: GPLv2 or later
 */
 
-// Options Page
-require_once ( plugin_dir_path( __FILE__ ) . 'inc/admin.php' );
-
 // Custom Post Type Definition
 require_once ( plugin_dir_path( __FILE__ ) . 'inc/post-type.php');
 
 // Custom Taxonomy Definition
 require_once ( plugin_dir_path( __FILE__ ) . 'inc/taxonomy.php' );
+
+// Options Page
+require_once ( plugin_dir_path( __FILE__ ) . 'inc/admin.php' );
 
 // JSON Linked Data
 if ( get_option( 'fitcase_toggle_jsonld' ) ) {
