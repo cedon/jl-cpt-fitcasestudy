@@ -36,7 +36,7 @@ function fitcasestudy_custom_post() {
 		'label'                 => __( 'Case Study', 'fitcasestudy' ),
 		'description'           => __( 'A case study specficially designed for fitness professionals', 'fitcasestudy' ),
 		'labels'                => $labels,
-		'supports'              => array( 'title', 'editor', 'author', 'thumbnail', 'revisions', 'custom-fields', 'page-attributes', 'post-formats', ),
+		'supports'              => array( 'thumbnail', 'revisions', 'page-attributes', ),
 		'taxonomies'            => array( 'fitnessgoal' ),
 		'hierarchical'          => true,
 		'public'                => true,

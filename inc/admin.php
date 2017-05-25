@@ -5,7 +5,8 @@
  */
 
 /**
- * Creates thr Admin Panel Menu
+ * Creates the Admin Panel Subpage for Options and places it in the submenu defined by the custom
+ * post type delcaration.
  */
 
 function fitcase_admin_menu() {
@@ -75,4 +76,38 @@ function fitcase_toggle_jsonld_callback( $args ) {
 	$fitcase_html .= '<label for="fitcase_use_jsonld"> ' . $args[0] . '</label>';
 
 	echo $fitcase_html;
+}
+
+/**
+ * Create the metaboxes for writing the case study content
+ */
+
+// Create Meta Boxes for Case Studies
+function add_meta_boxes_fitcasestudy() {
+    add_meta_box(
+        'fitcase-client-info',
+        __( 'Client Information', 'fitcasestudy' ),
+        'meta_box_clientinfo_callback',
+        'fitcasestudy',
+        'normal',
+        'high'
+    );
+
+    add_meta_box(
+        'fitcase-client-history',
+        __( 'Client History', 'fitcasestudy' ),
+        'meta_box_clienthist_callback',
+        'fitcasestudy',
+        'normal',
+        'high'
+    );
+}
+add_action( 'add_meta_boxes', 'add_meta_boxes_fitcasestudy' );
+
+function meta_box_clientinfo_callback() {
+    echo '<h2>Client Information</h2>';
+}
+
+function meta_box_clienthist_callback() {
+	echo '<h2>Client History</h2>';
 }

@@ -17,7 +17,7 @@ require_once ( plugin_dir_path( __FILE__ ) . 'inc/post-type.php');
 // Custom Taxonomy Definition
 require_once ( plugin_dir_path( __FILE__ ) . 'inc/taxonomy.php' );
 
-// Options Page
+// Administrative Options
 require_once ( plugin_dir_path( __FILE__ ) . 'inc/admin.php' );
 
 // JSON Linked Data
