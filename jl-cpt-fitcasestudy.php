@@ -3,7 +3,7 @@
 /*
 Plugin Name: JL Fitness Case Study Custom Post Type
 Plugin URI: http://jonliebold.com
-Description: A plugin to create a custom post type for Case Studies.
+Description: A plugin to create a custom post type for Case Studies specifically for fitness professionals and facilities.
 Version: 1.0
 Author: Jon Liebold
 Author URI: http://jonliebold.com
