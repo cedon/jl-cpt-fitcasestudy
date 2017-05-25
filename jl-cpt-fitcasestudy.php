@@ -15,6 +15,7 @@ License: GPLv2 or later
 require_once ( plugin_dir_path( __FILE__ ) . 'inc/admin.php' );
 
 // Custom Post Type Definition
+require_once ( plugin_dir_path( __FILE__ ) . 'inc/post-type.php');
 
 // Custom Taxonomy Definition
 require_once ( plugin_dir_path( __FILE__ ) . 'inc/taxonomy.php' );
