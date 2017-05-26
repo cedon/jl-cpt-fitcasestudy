@@ -25,11 +25,6 @@ require_once ( plugin_dir_path( __FILE__ ) . 'inc/admin.php' );
 
 // JSON Linked Data
 if ( get_option( 'fitcase_toggle_jsonld' ) ) {
-	?>
-	<script language="JavaScript">
-		console.log('JSON-LD is Enabled');
-	</script>
-	<?php
 	//require_once ( plugin_dir_path( __FILE__) . 'inc/jsonld.php' );
 }
 // Post Template
