@@ -6,7 +6,7 @@ function fitcasestudy_custom_post() {
 	$labels = array(
 		'name'                  => _x( 'Case Studies', 'Post Type General Name', 'fitcasestudy' ),
 		'singular_name'         => _x( 'Case Study', 'Post Type Singular Name', 'fitcasestudy' ),
-		'menu_name'             => __( 'Fitness Case Stidues', 'fitcasestudy' ),
+		'menu_name'             => __( 'Fitness Case Studies', 'fitcasestudy' ),
 		'name_admin_bar'        => __( 'Post Type', 'fitcasestudy' ),
 		'archives'              => __( 'Item Archives', 'fitcasestudy' ),
 		'attributes'            => __( 'Item Attributes', 'fitcasestudy' ),
