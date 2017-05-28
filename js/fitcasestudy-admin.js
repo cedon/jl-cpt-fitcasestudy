@@ -4,11 +4,14 @@ Meta Box Control Functions
 console.log( 'Admin Script is Loaded!');
 
 (function ($) {
-    var testVar = "This is a test!";
-    console.log(testVar);
-    console.log( $('input[name=height_unit]:checked').val() );
+
+    $(function () {
+        fitcaseHeightUnit = $('input[name=fitcase_height_unit]:checked', '#post').val();
+        console.log(fitcaseHeightUnit);
+
+        var testText = $('#client_height_box').html();
+        console.log(testText);
+    });
 
 })(jQuery);
 
-console.log('Second Test: ');
-console.log( jQuery('input[name=height_unit]:checked').val() );

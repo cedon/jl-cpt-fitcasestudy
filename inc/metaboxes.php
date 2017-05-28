@@ -78,9 +78,9 @@ function meta_box_clientinfo_callback( $post )  {
 
 	<p>
 		<span id="fitcase_client_height_unit" style="margin-right: 10px;">Unit of Measure: </span>
-		<span id="client_height_box"style="margin-right: 10px;">Test Text</span>
-		<input type="radio" name="fitcase_height_unit" checked />Feet
-		<input type="radio" name="fitcase_height_unit" />Centimeters
+		<span id="client_height_box" style="margin-right: 10px;">Test Text</span>
+		<label><input type="radio" name="fitcase_height_unit" value="ft" checked />Feet</label>
+		<label><input type="radio" name="fitcase_height_unit" value="cm" />Centimeters</label>
 	</p>
 
 	<?php
