@@ -46,6 +46,6 @@ register_deactivation_hook( __FILE__, 'fitcase_deactivation' );
 
 // Enqueue All JavaScript and CSS Files
 function fitcase_admin_enqueues() {
-	wp_enqueue_script( 'fitcasestudy-admin-js', plugin_dir_url( __FILE__ ) . 'js/fitcasestudy-admin.js', array( 'jquery' ), '', false );
+	wp_enqueue_script( 'fitcasestudy-admin-js', plugin_dir_url( __FILE__ ) . 'js/fitcasestudy-admin.js', array( 'jquery' ), '0.1', false );
 }
-add_action( 'admin_enqueue_scripts', 'fitcase_admin_enqueues' );
+//add_action( 'admin_enqueue_scripts', 'fitcase_admin_enqueues' );
