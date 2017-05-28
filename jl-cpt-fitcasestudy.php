@@ -23,6 +23,9 @@ require_once ( plugin_dir_path( __FILE__ ) . 'inc/taxonomy.php' );
 // Administrative Options
 require_once ( plugin_dir_path( __FILE__ ) . 'inc/admin.php' );
 
+// Case Study Writing Functions
+require_once ( plugin_dir_path( __FILE__ ) . 'inc/metaboxes.php');
+
 // JSON Linked Data
 if ( get_option( 'fitcase_toggle_jsonld' ) ) {
 	//require_once ( plugin_dir_path( __FILE__) . 'inc/jsonld.php' );
@@ -40,3 +43,9 @@ function fitcase_deactivation() {
 	flush_rewrite_rules();
 }
 register_deactivation_hook( __FILE__, 'fitcase_deactivation' );
+
+// Enqueue All JavaScript and CSS Files
+function fitcase_admin_enqueues() {
+	wp_enqueue_script( 'fitcasestudy-admin-js', plugin_dir_url( __FILE__ ) . 'js/fitcasestudy-admin.js', array( 'jquery' ), '', false );
+}
+add_action( 'admin_enqueue_scripts', 'fitcase_admin_enqueues' );
