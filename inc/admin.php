@@ -61,6 +61,41 @@ function fitcase_initialize_plugin_options() {
 		'fitcase_settings_section',
 		'fitcase_toggle_jsonld'
 	);
+
+    // Add Height Unit Toggle Option
+	add_settings_field(
+		'fitcase_toggle_height_unit',
+		'Height Unit of Measurement',
+		'fitcase_height_unit_callback',
+		'fitcase_admin_menu_options',
+		'fitcase_settings_section',
+		array(
+			' Select unit of measurement for height. Changing this will not affect current case studies.',
+		)
+	);
+
+	register_setting(
+		'fitcase_settings_section',
+		'fitcase_toggle_height_unit'
+	);
+
+	// Add Weight Unit Toggle Option
+	add_settings_field(
+		'fitcase_toggle_weight_unit',
+		'Weight Unit of Measurement',
+		'fitcase_weight_unit_callback',
+		'fitcase_admin_menu_options',
+		'fitcase_settings_section',
+		array(
+			' Select unit of measurement for weight. Changing this will not affect current case studies.',
+		)
+	);
+
+	register_setting(
+		'fitcase_settings_section',
+		'fitcase_toggle_weight_unit'
+	);
+
 }
 add_action( 'admin_init', 'fitcase_initialize_plugin_options' );
 
@@ -78,3 +113,22 @@ function fitcase_toggle_jsonld_callback( $args ) {
 	echo $fitcase_html;
 }
 
+function fitcase_height_unit_callback( $args ) {
+	$fitcase_html  = '<select id="fitcase_toggle_height_unit" name="fitcase_toggle_height_unit">' . PHP_EOL;
+	$fitcase_html .= "\t" . '<option value="ft">Feet</option>' . PHP_EOL;
+	$fitcase_html .= "\t" . '<option value="cm">Centimeters</option>' . PHP_EOL;
+	$fitcase_html .= '</select>';
+	$fitcase_html .= '<label for="fitcase_toggle_height_unit">' . $args[0] . '</label>' . PHP_EOL;
+
+	echo $fitcase_html;
+}
+
+function fitcase_weight_unit_callback( $args ) {
+	$fitcase_html  = '<select id="fitcase_toggle_weight_unit" name="fitcase_toggle_weight_unit">' . PHP_EOL;
+	$fitcase_html .= "\t" . '<option value="lbs">Pounds</option>' . PHP_EOL;
+	$fitcase_html .= "\t" . '<option value="kg">Kilograms</option>' . PHP_EOL;
+	$fitcase_html .= '</select>';
+	$fitcase_html .= '<label for="fitcase_toggle_weight_unit">' . $args[0] . '</label>' . PHP_EOL;
+
+	echo $fitcase_html;
+}
