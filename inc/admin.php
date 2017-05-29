@@ -114,9 +114,10 @@ function fitcase_toggle_jsonld_callback( $args ) {
 }
 
 function fitcase_height_unit_callback( $args ) {
+
 	$fitcase_html  = '<select id="fitcase_toggle_height_unit" name="fitcase_toggle_height_unit">' . PHP_EOL;
-	$fitcase_html .= "\t" . '<option value="ft">Feet</option>' . PHP_EOL;
-	$fitcase_html .= "\t" . '<option value="cm">Centimeters</option>' . PHP_EOL;
+	$fitcase_html .= "\t" . '<option value="ft" ' . selected( get_option( 'fitcase_toggle_height_unit' ), 'ft', false ) . '>Feet</option>' . PHP_EOL;
+	$fitcase_html .= "\t" . '<option value="cm" ' . selected( get_option( 'fitcase_toggle_height_unit' ), 'cm', false ) . '>Centimeters</option>' . PHP_EOL;
 	$fitcase_html .= '</select>';
 	$fitcase_html .= '<label for="fitcase_toggle_height_unit">' . $args[0] . '</label>' . PHP_EOL;
 
@@ -125,8 +126,8 @@ function fitcase_height_unit_callback( $args ) {
 
 function fitcase_weight_unit_callback( $args ) {
 	$fitcase_html  = '<select id="fitcase_toggle_weight_unit" name="fitcase_toggle_weight_unit">' . PHP_EOL;
-	$fitcase_html .= "\t" . '<option value="lbs">Pounds</option>' . PHP_EOL;
-	$fitcase_html .= "\t" . '<option value="kg">Kilograms</option>' . PHP_EOL;
+	$fitcase_html .= "\t" . '<option value="lbs" ' . selected( get_option( 'fitcase_toggle_weight_unit' ), 'lbs', false ) . '>Pounds</option>' . PHP_EOL;
+	$fitcase_html .= "\t" . '<option value="kg" ' . selected( get_option( 'fitcase_toggle_weight_unit' ), 'kg', false ) . '>Kilograms</option>' . PHP_EOL;
 	$fitcase_html .= '</select>';
 	$fitcase_html .= '<label for="fitcase_toggle_weight_unit">' . $args[0] . '</label>' . PHP_EOL;
 
