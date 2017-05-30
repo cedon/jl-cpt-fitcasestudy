@@ -149,17 +149,26 @@ function fitcase_save_meta( $post_id, $post, $update ) {
 		return;
 	}
 
-	if ( isset( $_POST[ 'fitcase_client_first_name' ] ) ) {
-	    $fitcase_client_first_name = $_POST[ 'fitcase_client_first_name' ];
-	    error_log( 'First Name: ' . $fitcase_client_first_name );
-		update_post_meta( $post_id, 'fitcase_client_first_name', $fitcase_client_first_name );
-	}
+//	if ( isset( $_POST[ 'fitcase_client_first_name' ] ) ) {
+//	    $fitcase_client_first_name = $_POST[ 'fitcase_client_first_name' ];
+//	    error_log( 'First Name: ' . $fitcase_client_first_name );
+//		update_post_meta( $post_id, 'fitcase_client_first_name', $fitcase_client_first_name );
+//	}
 
-	if ( isset( $_POST[ 'fitcase_client_last_name' ] ) ) {
-		$fitcase_client_last_name = $_POST[ 'fitcase_client_last_name' ];
-		error_log('Last Name: '. $fitcase_client_last_name);
-		update_post_meta( $post_id, 'fitcase_client_last_name', $fitcase_client_last_name );
-	}
+//	if ( isset( $_POST[ 'fitcase_client_last_name' ] ) ) {
+//		$fitcase_client_last_name = $_POST[ 'fitcase_client_last_name' ];
+//		error_log('Last Name: '. $fitcase_client_last_name);
+//		update_post_meta( $post_id, 'fitcase_client_last_name', $fitcase_client_last_name );
+//	}
+
+    if ( isset( $_POST[ 'fitcase_client_last_name' ] ) && isset( $_POST[ 'fitcase_client_first_name' ] ) ) {
+	    $firstname = $_POST[ 'fitcase_client_first_name' ];
+	    $lastname = $_POST[ 'fitcase_client_last_name' ];
+	    $fullname = $firstname . ' ' . $lastname;
+	    unset( $_POST[ 'fitcase_client_first_name' ] );
+	    unset( $_POST[ 'fitcase_client_last_name' ] );
+	    update_post_meta( $post_id, 'fitcase_client_name', $fullname );
+    }
 
 	if ( isset( $_POST['fitcase_client_age'] ) ) {
 	    $fitcase_client_age = $_POST['fitcase_client_age'];
@@ -176,6 +185,10 @@ function fitcase_save_meta( $post_id, $post, $update ) {
 		update_post_meta( $post_id, 'fitcase_client_history', $fitcase_client_history );
 	}
 
+	$_POST['fitcase_test_post_key'] = 'BLAH!!';
+	$fitcase_test = $_POST['fitcase_test_post_key'];
+	update_post_meta( $post_id, 'fitcase_test', $fitcase_test );
+
 	error_log('$_POST Contents:' . print_r($_POST, true) );
 
 }
@@ -183,6 +196,7 @@ add_action( 'save_post', 'fitcase_save_meta', 10, 3 );
 
 function fitcase_add_post_title_slug( $data ) {
     if ( $data['post_type'] == 'fitcasestudy' ) {
+
         $title = 'Case Study';
         $permalink = $title;
 
