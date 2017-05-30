@@ -167,15 +167,14 @@ function fitcase_save_meta( $post_id, $post, $update ) {
     }
 
     if ( isset( $_POST['fitcase_client_sex'] ) ) {
-	    update_post_meta( $post_id, 'fitcase_client_sex', $_POST['fitcase_client_sex'] );
+	    $fitcase_client_sex = $_POST['fitcase_client_sex'];
+	    update_post_meta( $post_id, 'fitcase_client_sex', $fitcase_client_sex );
     }
 
 	if ( isset( $_POST['fitcase_client_history'] ) ) {
 		$fitcase_client_history = $_POST[ 'fitcase_client_history' ];
 		update_post_meta( $post_id, 'fitcase_client_history', $fitcase_client_history );
 	}
-
-	error_log( 'fitcase_save_meta fired');
 
 	error_log('$_POST Contents:' . print_r($_POST, true) );
 
@@ -185,23 +184,29 @@ add_action( 'save_post', 'fitcase_save_meta', 10, 3 );
 function fitcase_add_post_title_slug( $data ) {
     if ( $data['post_type'] == 'fitcasestudy' ) {
         $title = 'Case Study';
+        $permalink = $title;
 
 	    if ( isset ( $_POST[ 'fitcase_client_first_name' ] ) ) {
-		    $title .= ' - ' . $_POST[ 'fitcase_client_first_name' ];
+		    $title .= ' - ' . $_POST['fitcase_client_first_name'];
+		    $permalink = $_POST['fitcase_client_first_name'];
         }
 
-	    if ( isset( $_POST[ 'fitcase_client_last_name' ] ) ) {
-		    $title .= ' ' . strtoupper( substr( $_POST[ 'fitcase_client_last_name' ], 0, 1 ) );
+	    if ( isset( $_POST['fitcase_client_last_name'] ) ) {
+		    $title .= ' ' . strtoupper( substr( $_POST['fitcase_client_last_name'], 0, 1 ) );
+		    $permalink .= ' ' . strtoupper( substr( $_POST['fitcase_client_last_name'], 0, 1 ) );
 	    }
 
 	   if ( isset( $_POST['fitcase_client_sex'] ) && $_POST['fitcase_client_sex'] != '' ) {
 	        $title .= ' - ' . $_POST['fitcase_client_sex'];
+	        $permalink .= ' ' . $_POST['fitcase_client_sex'];
        }
 
 	    if ( isset( $_POST['fitcase_client_age'] ) ) {
 		    $title .= ' Age ' . $_POST['fitcase_client_age'];
+		    $permalink .= ' age ' . $_POST['fitcase_client_age'];
 	    }
 	    $data['post_title'] = $title;
+	    $data['post_name'] = sanitize_title( $permalink );
     }
 
     error_log( '=== Filter $data ===');
