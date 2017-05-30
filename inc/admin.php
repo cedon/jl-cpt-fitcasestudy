@@ -64,31 +64,19 @@ function fitcase_initialize_plugin_options() {
 
     // Add Height Unit Toggle Option
 	add_settings_field(
-		'fitcase_toggle_height_unit',
-		'Height Unit of Measurement',
-		'fitcase_height_unit_callback',
+		'fitcase_toggle_measure_unit',
+		'Units of Measurement',
+		'fitcase_toggle_measure_unit_callback',
 		'fitcase_admin_menu_options',
 		'fitcase_settings_section',
 		array(
-			' Select unit of measurement for height. Changing this will not affect current case studies.',
+			'  Select Units of Measurement',
 		)
 	);
 
 	register_setting(
 		'fitcase_settings_section',
-		'fitcase_toggle_height_unit'
-	);
-
-	// Add Weight Unit Toggle Option
-	add_settings_field(
-		'fitcase_toggle_weight_unit',
-		'Weight Unit of Measurement',
-		'fitcase_weight_unit_callback',
-		'fitcase_admin_menu_options',
-		'fitcase_settings_section',
-		array(
-			' Select unit of measurement for weight. Changing this will not affect current case studies.',
-		)
+		'fitcase_toggle_measure_unit'
 	);
 
 	register_setting(
@@ -113,23 +101,15 @@ function fitcase_toggle_jsonld_callback( $args ) {
 	echo $fitcase_html;
 }
 
-function fitcase_height_unit_callback( $args ) {
+function fitcase_toggle_measure_unit_callback( $args ) {
 
-	$fitcase_html  = '<select id="fitcase_toggle_height_unit" name="fitcase_toggle_height_unit">' . PHP_EOL;
-	$fitcase_html .= "\t" . '<option value="ft" ' . selected( get_option( 'fitcase_toggle_height_unit' ), 'ft', false ) . '>Feet</option>' . PHP_EOL;
-	$fitcase_html .= "\t" . '<option value="cm" ' . selected( get_option( 'fitcase_toggle_height_unit' ), 'cm', false ) . '>Centimeters</option>' . PHP_EOL;
+	$fitcase_html  = '<select id="fitcase_toggle_measure_unit" name="fitcase_toggle_measure_unit">' . PHP_EOL;
+	$fitcase_html .= "\t" . '<option value="imperial" ' . selected( get_option( 'fitcase_toggle_measure_unit' ), 'imperial', false ) . '>Imperial</option>' . PHP_EOL;
+	$fitcase_html .= "\t" . '<option value="metric" ' . selected( get_option( 'fitcase_toggle_measure_unit' ), 'metric', false ) . '>Metric</option>' . PHP_EOL;
 	$fitcase_html .= '</select>';
-	$fitcase_html .= '<label for="fitcase_toggle_height_unit">' . $args[0] . '</label>' . PHP_EOL;
+	$fitcase_html .= '<label for="fitcase_toggle_measure_unit">' . $args[0] . '</label>' . PHP_EOL;
 
 	echo $fitcase_html;
 }
 
-function fitcase_weight_unit_callback( $args ) {
-	$fitcase_html  = '<select id="fitcase_toggle_weight_unit" name="fitcase_toggle_weight_unit">' . PHP_EOL;
-	$fitcase_html .= "\t" . '<option value="lbs" ' . selected( get_option( 'fitcase_toggle_weight_unit' ), 'lbs', false ) . '>Pounds</option>' . PHP_EOL;
-	$fitcase_html .= "\t" . '<option value="kg" ' . selected( get_option( 'fitcase_toggle_weight_unit' ), 'kg', false ) . '>Kilograms</option>' . PHP_EOL;
-	$fitcase_html .= '</select>';
-	$fitcase_html .= '<label for="fitcase_toggle_weight_unit">' . $args[0] . '</label>' . PHP_EOL;
 
-	echo $fitcase_html;
-}
