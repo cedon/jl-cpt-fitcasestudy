@@ -59,12 +59,12 @@ function meta_box_clientinfo_callback( $post )  {
 	<p>Please enter in the information on the client whom you wish to feature in a case story.</p>
 	<p>
         <label for="fitcase_client_first_name"><?php _e( 'First Name', 'fitcasestudy' ); ?></label>
-        <input type="text" name="fitcase_client_name" id="fitcase_client_name" size="25" value="<?php if ( isset( $fitcase_post_meta['fitcase_client_first_name'] ) ) echo $fitcase_post_meta['fitcase_client_first_name'][0]; ?>" />
+        <input type="text" name="fitcase_client_first_name" id="fitcase_client_first_name" size="25" value="<?php if ( isset( $fitcase_post_meta['fitcase_client_first_name'] ) ) echo $fitcase_post_meta['fitcase_client_first_name'][0]; ?>" />
     </p>
 
     <p>
         <label for="fitcase_client_first_name"><?php _e( 'Last Name', 'fitcasestudy' ); ?></label>
-        <input type="text" name="fitcase_client_name" id="fitcase_client_name" size="25" value="<?php if ( isset( $fitcase_post_meta['fitcase_client_last_name'] ) ) echo $fitcase_post_meta['fitcase_client_last_name'][0]; ?>" />
+        <input type="text" name="fitcase_client_last_name" id="fitcase_client_last_name" size="25" value="<?php if ( isset( $fitcase_post_meta['fitcase_client_last_name'] ) ) echo $fitcase_post_meta['fitcase_client_last_name'][0]; ?>" />
     </p>
 
 	<p>
@@ -73,11 +73,12 @@ function meta_box_clientinfo_callback( $post )  {
 	</p>
 
 	<p>
-		<label for="fitcase_client_gender"><?php _e( 'Gender', 'fitcasestudy' ); ?></label>
-		<select id="fitcase_client_gender" name="fitcase_client_gender">
-			<option value="male">Male</option>
-			<option value="female">Female</option>
-			<option value="other">Other</option>
+		<label for="fitcase_client_sex"><?php _e( 'Sex', 'fitcasestudy' ); ?></label>
+		<select id="fitcase_client_sex" name="fitcase_client_sex">
+			<option value=""></option>
+            <option value="Male">Male</option>
+			<option value="Female">Female</option>
+			<option value="Other">Other</option>
 		</select>
 	</p>
 
@@ -98,8 +99,6 @@ function meta_box_clienthist_callback( $post ) {
 	if ( isset( $fitcase_post_meta['fitcase_client_history'] ) ) {
 		$fitcasestudy_client_history_content = $fitcase_post_meta['fitcase_client_history'][0];
     }
-
-
 
 	if ( $fitcasestudy_client_history_content != '' ) {
 		$editor_content = $fitcasestudy_client_history_content;
@@ -133,11 +132,9 @@ function fitcase_save_meta( $post_id, $post, $update ) {
 
 	global $fitcase_post_meta;
 	$fitcase_post_meta = get_post_meta( $post_id );
-	error_log( 'fitcase_save_meta is firing');
 
 
 	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
-		error_log( 'fitcase_save_meta: Doing Autosave');
 		return;
 	}
 
@@ -145,30 +142,32 @@ function fitcase_save_meta( $post_id, $post, $update ) {
 
 
 	if ( !current_user_can( 'edit_post', $post_id ) ) {
-		error_log('fitcase_save_meta: user cannot edit posts');
 		return;
 	}
 
 	if ( !current_user_can( 'edit_page' , $post_id ) ) {
-		error_log( 'fitcase_save_meta: user cannot edit pages');
 		return;
 	}
 
-	error_log('All Conditions are Met');
-
 	if ( isset( $_POST[ 'fitcase_client_first_name' ] ) ) {
-		$fitcase_client_name = $_POST[ 'fitcase_client_first_name' ];
-		update_post_meta( $post_id, 'fitcase_client_first_name', $fitcase_client_name );
+	    $fitcase_client_first_name = $_POST[ 'fitcase_client_first_name' ];
+	    error_log( 'First Name: ' . $fitcase_client_first_name );
+		update_post_meta( $post_id, 'fitcase_client_first_name', $fitcase_client_first_name );
 	}
 
 	if ( isset( $_POST[ 'fitcase_client_last_name' ] ) ) {
-		$fitcase_client_name = $_POST[ 'fitcase_client_last_name' ];
-		update_post_meta( $post_id, 'fitcase_client_last_name', $fitcase_client_name );
+		$fitcase_client_last_name = $_POST[ 'fitcase_client_last_name' ];
+		error_log('Last Name: '. $fitcase_client_last_name);
+		update_post_meta( $post_id, 'fitcase_client_last_name', $fitcase_client_last_name );
 	}
 
 	if ( isset( $_POST['fitcase_client_age'] ) ) {
 	    $fitcase_client_age = $_POST['fitcase_client_age'];
 	    update_post_meta( $post_id, 'fitcase_client_age', $fitcase_client_age );
+    }
+
+    if ( isset( $_POST['fitcase_client_sex'] ) ) {
+	    update_post_meta( $post_id, 'fitcase_client_sex', $_POST['fitcase_client_sex'] );
     }
 
 	if ( isset( $_POST['fitcase_client_history'] ) ) {
@@ -182,3 +181,31 @@ function fitcase_save_meta( $post_id, $post, $update ) {
 
 }
 add_action( 'save_post', 'fitcase_save_meta', 10, 3 );
+
+function fitcase_add_post_title_slug( $data ) {
+    if ( $data['post_type'] == 'fitcasestudy' ) {
+        $title = 'Case Study';
+
+	    if ( isset ( $_POST[ 'fitcase_client_first_name' ] ) ) {
+		    $title .= ' - ' . $_POST[ 'fitcase_client_first_name' ];
+        }
+
+	    if ( isset( $_POST[ 'fitcase_client_last_name' ] ) ) {
+		    $title .= ' ' . strtoupper( substr( $_POST[ 'fitcase_client_last_name' ], 0, 1 ) );
+	    }
+
+	   if ( isset( $_POST['fitcase_client_sex'] ) && $_POST['fitcase_client_sex'] != '' ) {
+	        $title .= ' - ' . $_POST['fitcase_client_sex'];
+       }
+
+	    if ( isset( $_POST['fitcase_client_age'] ) ) {
+		    $title .= ' Age ' . $_POST['fitcase_client_age'];
+	    }
+	    $data['post_title'] = $title;
+    }
+
+    error_log( '=== Filter $data ===');
+    error_log( print_r($data, true) );
+    return $data;
+}
+add_filter( 'wp_insert_post_data', 'fitcase_add_post_title_slug' );
