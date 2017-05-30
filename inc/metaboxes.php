@@ -52,76 +52,38 @@ function meta_box_clientinfo_callback( $post )  {
 	wp_nonce_field( plugin_basename( __FILE__ ), 'fitcase-nonce' );
 
 	echo '<pre>';
-	print_r($fitcase_post_meta);
+	    print_r($fitcase_post_meta);
 	echo '</pre>';
 	?>
 
 	<p>Please enter in the information on the client whom you wish to feature in a case story.</p>
 	<p>
-		<label for="fitcase_client_name"><?php _e( 'Client Name', 'fitcasestudy' ); ?></label>
-		<input type="text" name="fitcase_client_name" id="fitcase_client_name" size="25" value="<?php fitcase_field_value( 'fitcase_client_name' ); ?>" />
+        <label for="fitcase_client_first_name"><?php _e( 'First Name', 'fitcasestudy' ); ?></label>
+        <input type="text" name="fitcase_client_name" id="fitcase_client_name" size="25" value="<?php if ( isset( $fitcase_post_meta['fitcase_client_first_name'] ) ) echo $fitcase_post_meta['fitcase_client_first_name'][0]; ?>" />
+    </p>
+
+    <p>
+        <label for="fitcase_client_first_name"><?php _e( 'Last Name', 'fitcasestudy' ); ?></label>
+        <input type="text" name="fitcase_client_name" id="fitcase_client_name" size="25" value="<?php if ( isset( $fitcase_post_meta['fitcase_client_last_name'] ) ) echo $fitcase_post_meta['fitcase_client_last_name'][0]; ?>" />
+    </p>
+
+	<p>
+		<label for="fitcase-client-age"><?php _e( 'Age', 'fitcasestudy' ); ?></label>
+		<input type="text" name="fitcase_client_age" id="fitcase_client_age" value="<?php if ( isset( $fitcase_post_meta['fitcase_client_age'] ) ) echo $fitcase_post_meta['fitcase_client_age'][0];  ?>" size="3" maxlength="3" />
 	</p>
 
 	<p>
-		<label for="fitcase-client-age"><?php _e( 'Client Age', 'fitcasestudy' ); ?></label>
-		<input type="text" name="fitcase_client_age" id="fitcase_client_age" value="<?php fitcase_field_value( 'fitcase-client-age' ); ?>" size="3" maxlength="3" />
-	</p>
-
-	<p>
-		<label for="fitcase_client_gender"><?php _e( 'Client Gender', 'fitcasestudy' ); ?></label>
+		<label for="fitcase_client_gender"><?php _e( 'Gender', 'fitcasestudy' ); ?></label>
 		<select id="fitcase_client_gender" name="fitcase_client_gender">
 			<option value="male">Male</option>
 			<option value="female">Female</option>
-			<option value="Other">Other</option>
+			<option value="other">Other</option>
 		</select>
 	</p>
 
 	<p>
-		<label for="fitcase_client_height">Height:</label>
-		<select name="fitcase_client_height" id="fitcase_client_height">
-			<optgroup label="4&rsquo;">
-				<option value="4&rsquo;">4&rsquo;</option>
-				<option value="4&rsquo;&nbsp;1&rdquo;">4&rsquo;&nbsp;1&rdquo;</option>
-				<option value="4&rsquo;&nbsp;2&rdquo;">4&rsquo;&nbsp;2&rdquo;</option>
-				<option value="4&rsquo;&nbsp;3&rdquo;">4&rsquo;&nbsp;3&rdquo;</option>
-				<option value="4&rsquo;&nbsp;4&rdquo;">4&rsquo;&nbsp;4&rdquo;</option>
-				<option value="4&rsquo;&nbsp;5&rdquo;">4&rsquo;&nbsp;5&rdquo;</option>
-				<option value="4&rsquo;&nbsp;6&rdquo;">4&rsquo;&nbsp;6&rdquo;</option>
-				<option value="4&rsquo;&nbsp;7&rdquo;">4&rsquo;&nbsp;7&rdquo;</option>
-				<option value="4&rsquo;&nbsp;8&rdquo;">4&rsquo;&nbsp;8&rdquo;</option>
-				<option value="4&rsquo;&nbsp;9&rdquo;">4&rsquo;&nbsp;9&rdquo;</option>
-				<option value="4&rsquo;&nbsp;10&rdquo;">4&rsquo;&nbsp;10&rdquo;</option>
-				<option value="4&rsquo;&nbsp;11&rdquo;">4&rsquo;&nbsp;11&rdquo;</option>
-			</optgroup>
-			<optgroup label="5&rsquo;"> selected="selected"
-				<option value="5&rsquo;">5&rsquo;</option>
-				<option value="5&rsquo;&nbsp;1&rdquo;">5&rsquo;&nbsp;1&rdquo;</option>
-				<option value="5&rsquo;&nbsp;2&rdquo;">5&rsquo;&nbsp;2&rdquo;</option>
-				<option value="5&rsquo;&nbsp;3&rdquo;">5&rsquo;&nbsp;3&rdquo;</option>
-				<option value="5&rsquo;&nbsp;4&rdquo;">5&rsquo;&nbsp;4&rdquo;</option>
-				<option value="5&rsquo;&nbsp;5&rdquo;">5&rsquo;&nbsp;5&rdquo;</option>
-				<option value="5&rsquo;&nbsp;6&rdquo;">5&rsquo;&nbsp;6&rdquo;</option>
-				<option value="5&rsquo;&nbsp;7&rdquo;">5&rsquo;&nbsp;7&rdquo;</option>
-				<option value="5&rsquo;&nbsp;8&rdquo;">5&rsquo;&nbsp;8&rdquo;</option>
-				<option value="5&rsquo;&nbsp;9&rdquo;">5&rsquo;&nbsp;9&rdquo;</option>
-				<option value="5&rsquo;&nbsp;10&rdquo;">5&rsquo;&nbsp;10&rdquo;</option>
-				<option value="5&rsquo;&nbsp;11&rdquo;">5&rsquo;&nbsp;11&rdquo;</option>
-			</optgroup>
-			<optgroup label="6&rsquo;">
-				<option value="6&rsquo;">6&rsquo;</option>
-				<option value="6&rsquo;&nbsp;1&rdquo;">6&rsquo;&nbsp;1&rdquo;</option>
-				<option value="6&rsquo;&nbsp;2&rdquo;">6&rsquo;&nbsp;2&rdquo;</option>
-				<option value="6&rsquo;&nbsp;3&rdquo;">6&rsquo;&nbsp;3&rdquo;</option>
-				<option value="6&rsquo;&nbsp;4&rdquo;">6&rsquo;&nbsp;4&rdquo;</option>
-				<option value="6&rsquo;&nbsp;5&rdquo;">6&rsquo;&nbsp;5&rdquo;</option>
-				<option value="6&rsquo;&nbsp;6&rdquo;">6&rsquo;&nbsp;6&rdquo;</option>
-				<option value="6&rsquo;&nbsp;7&rdquo;">6&rsquo;&nbsp;7&rdquo;</option>
-				<option value="6&rsquo;&nbsp;8&rdquo;">6&rsquo;&nbsp;8&rdquo;</option>
-				<option value="6&rsquo;&nbsp;9&rdquo;">6&rsquo;&nbsp;9&rdquo;</option>
-				<option value="6&rsquo;&nbsp;10&rdquo;">6&rsquo;&nbsp;10&rdquo;</option>
-				<option value="6&rsquo;&nbsp;11&rdquo;">6&rsquo;&nbsp;11&rdquo;</option>
-			</optgroup>
-		</select>
+        <label for="fitcase_client_height"><?php _e( 'Height', 'fitcasestudy' ); ?></label>
+        <?php testMetric(); ?>
 	</p>
 
 	<?php
@@ -130,8 +92,14 @@ function meta_box_clientinfo_callback( $post )  {
 function meta_box_clienthist_callback( $post ) {
 	global $fitcase_post_meta;
 
-	$fitcasestudy_client_history_content = $fitcase_post_meta['fitcase_client_history'][0];
 	$editor_id = 'fitcase_client_history';
+	$fitcasestudy_client_history_content = '';
+
+	if ( isset( $fitcase_post_meta['fitcase_client_history'] ) ) {
+		$fitcasestudy_client_history_content = $fitcase_post_meta['fitcase_client_history'][0];
+    }
+
+
 
 	if ( $fitcasestudy_client_history_content != '' ) {
 		$editor_content = $fitcasestudy_client_history_content;
@@ -140,7 +108,6 @@ function meta_box_clienthist_callback( $post ) {
 	}
 	?>
 	<p>Enter in the history of the client.</p>
-	<label for="fitcase_client_history" class="screen-reader-text"><?php _e( 'Client History Text Area', 'fitcasestudy' ); ?></label>
 
 	<?php
 	wp_editor( $editor_content, $editor_id );
@@ -189,11 +156,25 @@ function fitcase_save_meta( $post_id, $post, $update ) {
 
 	error_log('All Conditions are Met');
 
-	$fitcase_client_name = $_POST['fitcase_client_name'];
-	update_post_meta( $post_id, 'fitcase_client_name', $fitcase_client_name );
+	if ( isset( $_POST[ 'fitcase_client_first_name' ] ) ) {
+		$fitcase_client_name = $_POST[ 'fitcase_client_first_name' ];
+		update_post_meta( $post_id, 'fitcase_client_first_name', $fitcase_client_name );
+	}
 
-	$fitcase_client_history = $_POST['fitcase_client_history'];
-	update_post_meta( $post_id, 'fitcase_client_history', $fitcase_client_history );
+	if ( isset( $_POST[ 'fitcase_client_last_name' ] ) ) {
+		$fitcase_client_name = $_POST[ 'fitcase_client_last_name' ];
+		update_post_meta( $post_id, 'fitcase_client_last_name', $fitcase_client_name );
+	}
+
+	if ( isset( $_POST['fitcase_client_age'] ) ) {
+	    $fitcase_client_age = $_POST['fitcase_client_age'];
+	    update_post_meta( $post_id, 'fitcase_client_age', $fitcase_client_age );
+    }
+
+	if ( isset( $_POST['fitcase_client_history'] ) ) {
+		$fitcase_client_history = $_POST[ 'fitcase_client_history' ];
+		update_post_meta( $post_id, 'fitcase_client_history', $fitcase_client_history );
+	}
 
 	error_log( 'fitcase_save_meta fired');
 
