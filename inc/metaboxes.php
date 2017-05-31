@@ -49,7 +49,7 @@ add_action( 'add_meta_boxes', 'add_meta_boxes_fitcasestudy' );
 function meta_box_clientinfo_callback( $post )  {
 	global $fitcase_post_meta;
 	$fitcase_post_meta = get_post_meta( $post->ID );
-	wp_nonce_field( plugin_basename( __FILE__ ), 'fitcase-nonce' );
+	wp_nonce_field( plugin_basename( __FILE__ ), 'fitcase_nonce' );
 
 	echo '<pre>';
 	    print_r($fitcase_post_meta);
@@ -139,36 +139,42 @@ function fitcase_save_meta( $post_id, $post, $update ) {
 	}
 
 	// Verify Nonce
-
-
-	if ( !current_user_can( 'edit_post', $post_id ) ) {
-		return;
-	}
-
-	if ( !current_user_can( 'edit_page' , $post_id ) ) {
-		return;
-	}
-
-//	if ( isset( $_POST[ 'fitcase_client_first_name' ] ) ) {
-//	    $fitcase_client_first_name = $_POST[ 'fitcase_client_first_name' ];
-//	    error_log( 'First Name: ' . $fitcase_client_first_name );
-//		update_post_meta( $post_id, 'fitcase_client_first_name', $fitcase_client_first_name );
-//	}
-
-//	if ( isset( $_POST[ 'fitcase_client_last_name' ] ) ) {
-//		$fitcase_client_last_name = $_POST[ 'fitcase_client_last_name' ];
-//		error_log('Last Name: '. $fitcase_client_last_name);
-//		update_post_meta( $post_id, 'fitcase_client_last_name', $fitcase_client_last_name );
-//	}
-
-    if ( isset( $_POST[ 'fitcase_client_last_name' ] ) && isset( $_POST[ 'fitcase_client_first_name' ] ) ) {
-	    $firstname = $_POST[ 'fitcase_client_first_name' ];
-	    $lastname = $_POST[ 'fitcase_client_last_name' ];
-	    $fullname = $firstname . ' ' . $lastname;
-	    unset( $_POST[ 'fitcase_client_first_name' ] );
-	    unset( $_POST[ 'fitcase_client_last_name' ] );
-	    update_post_meta( $post_id, 'fitcase_client_name', $fullname );
+    if ( ! isset( $_POST['fitcase_nonce'] ) ) {
+	    error_log('ERROR! NONCE NOT SET!');
+	    return;
+    } else {
+	    error_log('THE NONCE IS SET! ZOMG!');
     }
+
+
+	if ( ! current_user_can( 'edit_post', $post_id ) ) {
+		return;
+	}
+
+	if ( ! current_user_can( 'edit_page' , $post_id ) ) {
+		return;
+	}
+
+	if ( isset( $_POST[ 'fitcase_client_first_name' ] ) ) {
+	    $fitcase_client_first_name = $_POST[ 'fitcase_client_first_name' ];
+	    error_log( 'First Name: ' . $fitcase_client_first_name );
+		update_post_meta( $post_id, 'fitcase_client_first_name', $fitcase_client_first_name );
+	}
+
+	if ( isset( $_POST[ 'fitcase_client_last_name' ] ) ) {
+		$fitcase_client_last_name = $_POST[ 'fitcase_client_last_name' ];
+		error_log('Last Name: '. $fitcase_client_last_name);
+		update_post_meta( $post_id, 'fitcase_client_last_name', $fitcase_client_last_name );
+	}
+
+//    if ( isset( $_POST[ 'fitcase_client_last_name' ] ) && isset( $_POST[ 'fitcase_client_first_name' ] ) ) {
+//	    $firstname = $_POST[ 'fitcase_client_first_name' ];
+//	    $lastname = $_POST[ 'fitcase_client_last_name' ];
+//	    $fullname = $firstname . ' ' . $lastname;
+//	    unset( $_POST[ 'fitcase_client_first_name' ] );
+//	    unset( $_POST[ 'fitcase_client_last_name' ] );
+//	    update_post_meta( $post_id, 'fitcase_client_name', $fullname );
+//    }
 
 	if ( isset( $_POST['fitcase_client_age'] ) ) {
 	    $fitcase_client_age = $_POST['fitcase_client_age'];
