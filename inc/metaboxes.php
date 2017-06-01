@@ -56,37 +56,69 @@ function meta_box_clientinfo_callback( $post )  {
 	echo '</pre>';
 	?>
 
-	<p>Please enter in the information on the client whom you wish to feature in a case story.</p>
+<!--	<p>Please enter in the information on the client whom you wish to feature in a case story.</p>-->
 	<p>
         <label for="fitcase_client_first_name"><?php _e( 'First Name', 'fitcasestudy' ); ?></label>
         <input type="text" name="fitcase_client_first_name" id="fitcase_client_first_name" size="25" value="<?php if ( isset( $fitcase_post_meta['fitcase_client_first_name'] ) ) echo $fitcase_post_meta['fitcase_client_first_name'][0]; ?>" />
-    </p>
 
-    <p>
         <label for="fitcase_client_first_name"><?php _e( 'Last Name', 'fitcasestudy' ); ?></label>
         <input type="text" name="fitcase_client_last_name" id="fitcase_client_last_name" size="25" value="<?php if ( isset( $fitcase_post_meta['fitcase_client_last_name'] ) ) echo $fitcase_post_meta['fitcase_client_last_name'][0]; ?>" />
     </p>
 
 	<p>
+        <label for="fitcase_client_sex"><?php _e( 'Sex', 'fitcasestudy' ); ?></label>
+        <select id="fitcase_client_sex" name="fitcase_client_sex">
+            <option value=""></option>
+            <option value="Male" <?php selected( $fitcase_post_meta['fitcase_client_sex'][0], 'Male' ) ; ?>>Male</option>
+            <option value="Female" <?php selected( $fitcase_post_meta['fitcase_client_sex'][0], 'Female' ) ; ?>>Female</option>
+            <option value="Other" <?php selected( $fitcase_post_meta['fitcase_client_sex'][0], 'Other' ) ; ?>>Other</option>
+        </select>
+
 		<label for="fitcase-client-age"><?php _e( 'Age', 'fitcasestudy' ); ?></label>
 		<input type="text" name="fitcase_client_age" id="fitcase_client_age" value="<?php if ( isset( $fitcase_post_meta['fitcase_client_age'] ) ) echo $fitcase_post_meta['fitcase_client_age'][0];  ?>" size="3" maxlength="3" />
 	</p>
 
 	<p>
-		<label for="fitcase_client_sex"><?php _e( 'Sex', 'fitcasestudy' ); ?></label>
-		<select id="fitcase_client_sex" name="fitcase_client_sex">
-			<option value=""></option>
-            <option value="Male">Male</option>
-			<option value="Female">Female</option>
-			<option value="Other">Other</option>
-		</select>
+        <?php _e( 'Height', 'fitcasestudy' ); ?>
+        <!-- PHP If/Then Conditional to determine if ft/in or cm input fields get displayed will go here -->
+
+        <?php _e( 'Weight', 'fircasestudy' ); ?>
+        <!-- PHP If/Then Conditional to determine if lbs or kg label get displayed will go here -->
+        <p>
 	</p>
 
-	<p>
-        <label for="fitcase_client_height"><?php _e( 'Height', 'fitcasestudy' ); ?></label>
-        <?php testMetric(); ?>
-	</p>
+    <p>
+        <?php
+            if ( isset( $fitcase_post_meta['fitcase_client_goal'][0] ) ) {
+                $fitcase_client_goal = $fitcase_post_meta['fitcase_client_goal'][0];
+            } else {
+                $fitcase_post_meta['fitcase_client_goal'][0] = '';
+            }
 
+            $args = array(
+                'taxonomy'      => 'fitnessgoal',
+                'orderby'       => 'name',
+                'hide_empty'    => 0,
+            );
+
+            $fitcase_terms = get_terms( $args );
+
+            if ( ! empty( $fitcase_terms ) ) { ?>
+                <label for="fitcase_client_goal"><?php _e( 'Fitness Goal', 'fitcasestudy' ); ?></label>
+                <select id="fitcase_client_goal" name="fitcase_client_goal">
+                    <option value="" <?php selected( $fitcase_post_meta['fitcase_client_goal'][0], '' ); ?>></option>
+                <?php foreach ( $fitcase_terms as $term ) { ?>
+                    <option value="<?php echo $term->slug; ?>" <?php selected( $fitcase_post_meta['fitcase_client_goal'][0], $term->slug ); ?>><?php echo $term->name; ?></option>
+                <?php } ?>
+                </select>
+            <?php } else {
+                echo '<label for="fitcase_client_goal">' . _e( 'Fitness Goal', 'fitcasestudy' ) . '</label>';
+	            echo '<span id="fitcase_client_goal" class="fitcase-warning">&nbsp; None Have Been Defined</span>';
+            }
+
+            //error_log( print_r($fitcase_terms, true) );
+        ?>
+    </p>
 	<?php
 }
 
@@ -140,12 +172,8 @@ function fitcase_save_meta( $post_id, $post, $update ) {
 
 	// Verify Nonce
     if ( ! isset( $_POST['fitcase_nonce'] ) ) {
-	    error_log('ERROR! NONCE NOT SET!');
 	    return;
-    } else {
-	    error_log('THE NONCE IS SET! ZOMG!');
     }
-
 
 	if ( ! current_user_can( 'edit_post', $post_id ) ) {
 		return;
@@ -157,13 +185,11 @@ function fitcase_save_meta( $post_id, $post, $update ) {
 
 	if ( isset( $_POST[ 'fitcase_client_first_name' ] ) ) {
 	    $fitcase_client_first_name = $_POST[ 'fitcase_client_first_name' ];
-	    error_log( 'First Name: ' . $fitcase_client_first_name );
 		update_post_meta( $post_id, 'fitcase_client_first_name', $fitcase_client_first_name );
 	}
 
 	if ( isset( $_POST[ 'fitcase_client_last_name' ] ) ) {
 		$fitcase_client_last_name = $_POST[ 'fitcase_client_last_name' ];
-		error_log('Last Name: '. $fitcase_client_last_name);
 		update_post_meta( $post_id, 'fitcase_client_last_name', $fitcase_client_last_name );
 	}
 
@@ -184,6 +210,11 @@ function fitcase_save_meta( $post_id, $post, $update ) {
     if ( isset( $_POST['fitcase_client_sex'] ) ) {
 	    $fitcase_client_sex = $_POST['fitcase_client_sex'];
 	    update_post_meta( $post_id, 'fitcase_client_sex', $fitcase_client_sex );
+    }
+
+    if ( isset( $_POST['fitcase_client_goal'] ) ) {
+	    $fitcase_client_goal = $_POST['fitcase_client_goal'];
+	    update_post_meta( $post_id, 'fitcase_client_goal', $fitcase_client_goal );
     }
 
 	if ( isset( $_POST['fitcase_client_history'] ) ) {
