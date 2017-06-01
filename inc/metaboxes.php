@@ -89,9 +89,7 @@ function meta_box_clientinfo_callback( $post )  {
 
     <p>
         <?php
-            if ( isset( $fitcase_post_meta['fitcase_client_goal'][0] ) ) {
-                $fitcase_client_goal = $fitcase_post_meta['fitcase_client_goal'][0];
-            } else {
+            if ( ! isset( $fitcase_post_meta['fitcase_client_goal'][0] ) ) {
                 $fitcase_post_meta['fitcase_client_goal'][0] = '';
             }
 
