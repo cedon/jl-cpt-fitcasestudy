@@ -26,7 +26,7 @@ function add_meta_boxes_fitcasestudy() {
 	add_meta_box(
 		'fitcase-client-results',
 		__( 'Client Results', 'fitcasestudy' ),
-		'meta_box_clientresults_callback',
+		'meta_box_client_results_callback',
 		'fitcasestudy',
 		'normal',
 		'high'
@@ -35,7 +35,7 @@ function add_meta_boxes_fitcasestudy() {
 	add_meta_box(
 		'fitcase-study-client-pics',
 		__( 'Client Progress Photos', 'fitcasestudy' ),
-		'meta_box_clientpics_callback',
+		'meta_box_client_pics_callback',
 		'fitcasestudy',
 		'side',
 		'default'
@@ -113,8 +113,6 @@ function meta_box_clientinfo_callback( $post )  {
                 echo '<label for="fitcase_client_goal">' . _e( 'Fitness Goal', 'fitcasestudy' ) . '</label>';
 	            echo '<span id="fitcase_client_goal" class="fitcase-warning">&nbsp; None Have Been Defined</span>';
             }
-
-            //error_log( print_r($fitcase_terms, true) );
         ?>
     </p>
 	<?php
@@ -124,14 +122,14 @@ function meta_box_clienthist_callback( $post ) {
 	global $fitcase_post_meta;
 
 	$editor_id = 'fitcase_client_history';
-	$fitcasestudy_client_history_content = '';
+	$fitcase_client_history_content = '';
 
 	if ( isset( $fitcase_post_meta['fitcase_client_history'] ) ) {
-		$fitcasestudy_client_history_content = $fitcase_post_meta['fitcase_client_history'][0];
+		$fitcase_client_history_content = $fitcase_post_meta['fitcase_client_history'][0];
     }
 
-	if ( $fitcasestudy_client_history_content != '' ) {
-		$editor_content = $fitcasestudy_client_history_content;
+	if ( $fitcase_client_history_content != '' ) {
+		$editor_content = $fitcase_client_history_content;
 	} else {
 		$editor_content = '';
 	}
@@ -142,11 +140,27 @@ function meta_box_clienthist_callback( $post ) {
 	wp_editor( $editor_content, $editor_id );
 }
 
-function meta_box_clientresults_callback( $post ) {
-	echo '<h2>Client Results</h2>';
+function meta_box_client_results_callback( $post ) {
+	global $fitcase_post_meta;
+
+	$editor_id = 'fitcase_client_results';
+	$fitcase_client_results_content = '';
+
+	if ( isset( $fitcase_post_meta['fitcase_client_results'] ) ) {
+	    $fitcase_client_results_content = $fitcase_post_meta['fitcase_client_results'][0];
+    }
+
+	if ( $fitcase_client_results_content != '' ) {
+		$editor_content = $fitcase_client_results_content;
+	} else {
+		$editor_content = '';
+	}
+
+	wp_editor( $editor_content, $editor_id );
+
 }
 
-function meta_box_clientpics_callback( $post ) {
+function meta_box_client_pics_callback( $post ) {
 	$fitcase_post_meta = get_post_meta( $post->ID );
 	?>
 
@@ -220,9 +234,9 @@ function fitcase_save_meta( $post_id, $post, $update ) {
 		update_post_meta( $post_id, 'fitcase_client_history', $fitcase_client_history );
 	}
 
-	$_POST['fitcase_test_post_key'] = 'BLAH!!';
-	$fitcase_test = $_POST['fitcase_test_post_key'];
-	update_post_meta( $post_id, 'fitcase_test', $fitcase_test );
+//	$_POST['fitcase_test_post_key'] = 'BLAH!!';
+//	$fitcase_test = $_POST['fitcase_test_post_key'];
+//	update_post_meta( $post_id, 'fitcase_test', $fitcase_test );
 
 	error_log('$_POST Contents:' . print_r($_POST, true) );
 
