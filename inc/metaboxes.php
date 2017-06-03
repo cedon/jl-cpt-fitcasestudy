@@ -161,7 +161,7 @@ function meta_box_client_results_callback( $post ) {
 }
 
 function meta_box_client_pics_callback( $post ) {
-	$fitcase_post_meta = get_post_meta( $post->ID );
+	global $fitcase_post_meta;
 	?>
 
 	<p>Before/After photos of client</p>
