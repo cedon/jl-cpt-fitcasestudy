@@ -66,6 +66,12 @@ function meta_box_clientinfo_callback( $post )  {
     </p>
 
 	<p>
+        <?php
+            if ( ! isset( $fitcase_post_meta['fitcase_client_sex'] ) ) {
+	            $fitcase_post_meta['fitcase_client_sex'][0] = '';
+            }
+        ?>
+
         <label for="fitcase_client_sex"><?php _e( 'Sex', 'fitcasestudy' ); ?></label>
         <select id="fitcase_client_sex" name="fitcase_client_sex">
             <option value=""></option>
@@ -81,8 +87,35 @@ function meta_box_clientinfo_callback( $post )  {
 	<p>
         <?php _e( 'Height', 'fitcasestudy' ); ?>
         <!-- PHP If/Then Conditional to determine if ft/in or cm input fields get displayed will go here -->
+        <?php
+            $fitcase_height = '';
+            if ( isset( $fitcase_post_meta['fitcase_client_height'] ) ) {
+                $fitcase_height = $fitcase_post_meta['fitcase_client_height'][0];
+            }
+
+            if ( get_option( 'fitcase_toggle_measure_unit' ) == 'imperial' or strpos( $fitcase_height, 'ft' ) ) {
+                echo 'Units are set to IMPERIAL';
+            } else {
+                echo 'Units are set to METRIC';
+            }
+
+        ?>
 
         <?php _e( 'Weight', 'fircasestudy' ); ?>
+
+        <?php
+            $fitcase_weight = '';
+            if ( isset( $fitcase_post_meta['fitcase_client_weight'] ) ) {
+                $fitcase_weight = $fitcase_post_meta['fitcase_client_weight'][0];
+            }
+
+            if ( get_option( 'fitcase_toggle_measure_unit' ) == 'imperial' or strpos( $fitcase_weight, 'lb' ) ) {
+                echo 'Units are set to IMPERIAL';
+            } else {
+                echo 'Units are set to METRIC';
+            }
+
+        ?>
         <!-- PHP If/Then Conditional to determine if lbs or kg label get displayed will go here -->
         <p>
 	</p>
