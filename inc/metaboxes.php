@@ -93,15 +93,22 @@ function meta_box_clientinfo_callback( $post )  {
                 $fitcase_height = $fitcase_post_meta['fitcase_client_height'][0];
             }
 
-            if ( get_option( 'fitcase_toggle_measure_unit' ) == 'imperial' or strpos( $fitcase_height, 'ft' ) ) {
-                echo 'Units are set to IMPERIAL';
-            } else {
-                echo 'Units are set to METRIC';
-            }
+            if ( get_option( 'fitcase_toggle_measure_unit' ) == 'imperial' or strpos( $fitcase_height, 'ft' ) ) { ?>
+	            <?php $_POST['fitcase_height_unit'] = 'imperial'; ?>
+	            <input type="text" name="fitcase_client_height_ft" id="fitcase_client_height_ft" maxlength="2" size="3" />
+                <label for="fitcase_client_height_ft">ft </label>
+                <input type="text" name="fitcase_client_height_ft" id="fitcase_client_height_in" maxlength="2" size="3" />
+                <label for="fitcase_client_height_in">in</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+            <?php } else { ?>
+	            <?php $_POST['fitcase_height_unit'] = 'metric'; ?>
+                <input type="text" name="fitcase_client_height_ft" id="fitcase_client_height_cm" maxlength="3" size="3" />
+                <label for="fitcase_client_height_in">cm </label>
+            <?php }
 
         ?>
 
-        <?php _e( 'Weight', 'fircasestudy' ); ?>
+        <?php _e( 'Weight', 'fitcasestudy' ); ?>
 
         <?php
             $fitcase_weight = '';
@@ -109,11 +116,15 @@ function meta_box_clientinfo_callback( $post )  {
                 $fitcase_weight = $fitcase_post_meta['fitcase_client_weight'][0];
             }
 
-            if ( get_option( 'fitcase_toggle_measure_unit' ) == 'imperial' or strpos( $fitcase_weight, 'lb' ) ) {
-                echo 'Units are set to IMPERIAL';
-            } else {
-                echo 'Units are set to METRIC';
-            }
+            if ( get_option( 'fitcase_toggle_measure_unit' ) == 'imperial' or strpos( $fitcase_weight, 'lb' ) ) { ?>
+                <?php $_POST['fitcase_weight_unit'] = 'imperial'; ?>
+                <input type="text" name="fitcase_client_weight_lb" id="fitcase_client_weight_lb" maxlength="3" size="3" />
+                <label for="fitcase_client_weight_lb">pounds </label>
+            <?php } else { ?>
+	            <?php $_POST['fitcase_weight_unit'] = 'metric'; ?>
+                <input type="text" name="fitcase_client_weight_kg" id="fitcase_client_weight_kg" maxlength="3" size="3" />
+                <label for="fitcase_client_weight_kg">kg </label>
+            <?php }
 
         ?>
         <!-- PHP If/Then Conditional to determine if lbs or kg label get displayed will go here -->
