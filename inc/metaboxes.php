@@ -268,6 +268,10 @@ function fitcase_save_meta( $post_id, $post, $update ) {
 	    update_post_meta( $post_id, 'fitcase_client_sex', $fitcase_client_sex );
     }
 
+    if ( isset( $_POST['fitcase_height_unit'] ) ) {
+        $fitcase_client_height_unit = $_POST['fitcase_height_unit'];
+    }
+
     if ( isset( $_POST['fitcase_client_goal'] ) ) {
 	    $fitcase_client_goal = $_POST['fitcase_client_goal'];
 	    update_post_meta( $post_id, 'fitcase_client_goal', $fitcase_client_goal );
