@@ -94,17 +94,18 @@ function meta_box_clientinfo_callback( $post )  {
 	</p>
 
 	<p>
-        <?php _e( 'Starting Height', 'fitcasestudy' ); ?>
+        <?php _e( 'Height', 'fitcasestudy' ); ?>
         <!-- PHP If/Then Conditional to determine if ft/in or cm input fields get displayed will go here -->
         <?php
             $fitcase_height = $fitcase_feet = $fitcase_inches = $fitcase_cm = '';
             if ( isset( $fitcase_post_meta['fitcase_client_height'] ) ) {
+                error_log( print_r ($fitcase_post_meta['fitcase_client_height'], true) );
                 $fitcase_height = $fitcase_post_meta['fitcase_client_height'][0];
 	            preg_match_all( '/[^A-Za-z\s]+/', $fitcase_height, $fitcase_matches_results );
 
                 reset( $fitcase_matches_results );
                 $fitcase_matches = current( $fitcase_matches_results );
-
+                error_log( '[ARRAY] $fitcase_matches_results' . PHP_EOL . print_r( $fitcase_matches_results, true ) );
                 $fitcase_feet = $fitcase_cm = $fitcase_matches[0];
 
                 if ( isset( $fitcase_matches[1] )) {
@@ -127,12 +128,12 @@ function meta_box_clientinfo_callback( $post )  {
 
         ?>
 
-        <?php _e( 'Starting Weight', 'fitcasestudy' ); ?>
+        <?php _e( 'Initial Weight', 'fitcasestudy' ); ?>
 
         <?php
             $fitcase_weight = $fitcase_kg = '';
-            if ( isset( $fitcase_post_meta['fitcase_client_weight'] ) ) {
-                $fitcase_weight = $fitcase_post_meta['fitcase_client_weight'][0];
+            if ( isset( $fitcase_post_meta['fitcase_client_initial_weight'] ) ) {
+                $fitcase_weight = $fitcase_post_meta['fitcase_client_initial_weight'][0];
 
 	            preg_match_all( '/[^A-Za-z\s]+/', $fitcase_weight, $fitcase_matches_results );
 
@@ -145,19 +146,19 @@ function meta_box_clientinfo_callback( $post )  {
 
             if ( get_option( 'fitcase_toggle_measure_unit' ) == 'imperial' or strpos( $fitcase_weight, 'lb' ) ) { ?>
                 <?php $_POST['fitcase_weight_unit'] = 'imperial'; ?>
-                <input type="hidden" name="fitcase_client_weight_unit" id="fitcase_weight_unit" aria-hidden="true" value="imperial">
-                <input type="text" name="fitcase_client_weight_lb" id="fitcase_client_weight_lb" maxlength="3" size="3" value="<?php echo $fitcase_kg ?>" />
-                <label for="fitcase_client_weight_lb">pounds </label>
+                <input type="hidden" name="fitcase_client_initial_weight_unit" id="fitcase_weight_unit" aria-hidden="true" value="imperial">
+                <input type="text" name="fitcase_client_initial_weight_lb" id="fitcase_client_initial_weight_lb" maxlength="3" size="3" value="<?php echo $fitcase_kg ?>" />
+                <label for="fitcase_client_initial_weight_lb">pounds </label>
             <?php } else { ?>
 	            <?php $_POST['fitcase_weight_unit'] = 'metric'; ?>
                 <input type="hidden" name="fitcase_weight_unit" id="fitcase_weight_unit" aria-hidden="true" value="metric">
-                <input type="text" name="fitcase_client_weight_kg" id="fitcase_client_weight_kg" maxlength="3" size="3" value="<?php echo $fitcase_kg ?>" />
-                <label for="fitcase_client_weight_kg">kg </label>
+                <input type="text" name="fitcase_client_initial_weight_kg" id="fitcase_client_initial_weight_kg" maxlength="3" size="3" value="<?php echo $fitcase_kg ?>" />
+                <label for="fitcase_client_initial_weight_kg">kg </label>
             <?php }
 
         ?>
 
-        <?php _e( 'Starting Body Fat', 'fitcasestudy' ); ?>
+        <?php _e( 'Initial Body Fat', 'fitcasestudy' ); ?>
     </p>
 
     <p>
@@ -317,18 +318,18 @@ function fitcase_save_meta( $post_id, $post, $update ) {
     }
 
     if ( isset( $_POST['fitcase_weight_unit'] ) ) {
-	    $fitcase_client_weight_unit = $_POST['fitcase_weight_unit'];
-	    if ( $fitcase_client_weight_unit == 'imperial' ) {
-            $fitcase_client_weight = $_POST['fitcase_client_weight_lb'] . ' pounds';
+	    $fitcase_client_initial_weight_unit = $_POST['fitcase_weight_unit'];
+	    if ( $fitcase_client_initial_weight_unit == 'imperial' ) {
+            $fitcase_client_initial_weight = $_POST['fitcase_client_initial_weight_lb'] . ' pounds';
             error_log( '[MSG] Setting weight in Imperial units');
-	    } elseif ( $fitcase_client_weight_unit == 'metric') {
-		    $fitcase_client_weight = $_POST['fitcase_client_weight_kg'] . ' kg';
+	    } elseif ( $fitcase_client_initial_weight_unit == 'metric') {
+		    $fitcase_client_initial_weight = $_POST['fitcase_client_initial_weight_kg'] . ' kg';
 		    error_log( '[MSG] Setting weight in Metric units');
         } else {
 		    wp_die( 'Invalid Unit for Client Weight' );
         }
-        error_log( '[VAR] $fitcase_client_weight = ' . $fitcase_client_weight );
-        update_post_meta( $post_id, 'fitcase_client_weight', $fitcase_client_weight );
+        error_log( '[VAR] $fitcase_client_initial_weight = ' . $fitcase_client_initial_weight );
+        update_post_meta( $post_id, 'fitcase_client_initial_weight', $fitcase_client_initial_weight );
     } else {
 	    wp_die( 'No Weight' );
     }
