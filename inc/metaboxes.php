@@ -159,6 +159,18 @@ function meta_box_clientinfo_callback( $post )  {
         ?>
 
         <?php _e( 'Initial Body Fat', 'fitcasestudy' ); ?>
+
+        <?php
+
+            $fitcase_initial_bodyfat = '';
+            if ( isset( $fitcase_post_meta['fitcase_client_initial_bodyfat'] ) ) {
+                $fitcase_initial_bodyfat = $fitcase_post_meta['fitcase_client_initial_bodyfat'][0];
+            }
+        ?>
+
+        <input type="text" name="fitcase_client_initial_bodyfat" id="fitcase_client_initial_bodyfat" maxlength="2" size="1" value="<?php echo $fitcase_initial_bodyfat; ?>" />
+        <label for="fitcase_client_initial_bodyfat">%</label>
+
     </p>
 
     <p>
@@ -332,6 +344,11 @@ function fitcase_save_meta( $post_id, $post, $update ) {
         update_post_meta( $post_id, 'fitcase_client_initial_weight', $fitcase_client_initial_weight );
     } else {
 	    wp_die( 'No Weight' );
+    }
+
+    if ( isset( $_POST['fitcase_client_initial_bodyfat'] ) ) {
+        $fitcase_client_initial_bodyfat = $_POST['fitcase_client_initial_bodyfat'];
+        update_post_meta( $post_id, 'fitcase_client_initial_bodyfat', $fitcase_client_initial_bodyfat );
     }
 
     if ( isset( $_POST['fitcase_client_goal'] ) ) {
