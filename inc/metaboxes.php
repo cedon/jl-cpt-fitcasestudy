@@ -59,12 +59,7 @@ function meta_box_clientinfo_callback( $post )  {
 	global $fitcase_post_meta;
 	$fitcase_post_meta = get_post_meta( $post->ID );
 	wp_nonce_field( plugin_basename( __FILE__ ), 'fitcase_nonce' );
-
-	echo '<pre>';
-	    print_r($fitcase_post_meta);
-	echo '</pre>';
-	?>
-
+?>
 	<p>
         <label for="fitcase_client_first_name"><?php _e( 'First Name', 'fitcasestudy' ); ?></label>
         <input type="text" name="fitcase_client_first_name" id="fitcase_client_first_name" size="25" value="<?php if ( isset( $fitcase_post_meta['fitcase_client_first_name'] ) ) echo $fitcase_post_meta['fitcase_client_first_name'][0]; ?>" />
@@ -220,7 +215,10 @@ function meta_box_clienthist_callback( $post ) {
 	<p>Enter in the history of the client.</p>
 
 	<?php
-	wp_editor( $editor_content, $editor_id );
+	$editor_settings = array(
+		'textarea_rows' => 5,
+	);
+	wp_editor( $editor_content, $editor_id, $editor_settings );
 }
 
 function meta_box_client_plan_callback ( $post ) {
@@ -298,8 +296,10 @@ function meta_box_client_results_callback( $post ) {
         <label for="fitcase_client_current_bodyfat">%</label>
     </p>
 	<?php
-
-	wp_editor( $editor_content, $editor_id );
+	$editor_settings = array(
+		'textarea_rows' => 5,
+	);
+	wp_editor( $editor_content, $editor_id, $editor_settings );
 }
 
 function meta_box_client_pics_callback( $post ) {
