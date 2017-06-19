@@ -28,3 +28,13 @@ function test_save_hook( $post_id, $post, $update ) {
 	//error_log( print_r($_REQUEST) );
 }
 add_action( 'save_post', 'test_save_hook', 10, 3 );
+
+function fitcase_init_wpeditor( $init ) {
+	if ( 'fitcasestudy' == get_post_type() ) {
+		$init['block_formats'] = 'Paragraph=p;Heading=h3;Subheading=h4';
+		return $init;
+	} else {
+		return $init;
+	}
+}
+add_filter( 'tiny_mce_before_init', 'fitcase_init_wpeditor' );
